@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>Acap_PDF_Generator</display-name>
+	       <context-param>  
+            <param-name>contextConfigLocation</param-name>  
+            <param-value>  
+                 /WEB-INF/config/spring-config.xml  
+            </param-value>  
+       </context-param>  
+       <listener>  
+            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+       </listener>  
+       <servlet>  
+            <servlet-name>webservices</servlet-name>  
+            <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>  
+            <init-param>  
+                 <param-name>transformWsdlLocations</param-name>  
+                 <param-value>true</param-value>  
+            </init-param>  
+            <init-param>  
+                 <param-name>contextConfigLocation</param-name>  
+                 <param-value></param-value>  
+            </init-param>  
+            <load-on-startup>1</load-on-startup>  
+       </servlet>  
+       <servlet-mapping>  
+            <servlet-name>webservices</servlet-name>  
+            <url-pattern>*.wsdl</url-pattern>  
+       </servlet-mapping>  
+       <servlet-mapping>  
+            <servlet-name>webservices</servlet-name>  
+            <url-pattern>/endpoints/*</url-pattern>  
+       </servlet-mapping> 
+       <resource-ref>
+      		<description>DB Connection</description>
+	   		<res-ref-name>jdbc/AOCDB</res-ref-name>
+	      	<res-type>javax.sql.DataSource</res-type>
+	      	<res-auth>Container</res-auth>
+	      	<res-sharing-scope>Shareable</res-sharing-scope>
+	  </resource-ref>
+      
+</web-app>

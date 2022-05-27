@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/AcapPDFGen" docBase="AcapPDFGen"
+   crossContext="true" reloadable="true" debug="1">
+
+          	<Resource name="jdbc/AOCDB" 
+      global="jdbc/AOCDB" 
+      auth="Container" 
+      type="javax.sql.DataSource" 
+      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+      url="jdbc:sqlserver://10.0.10.108:49190;databaseName=ACAP" 
+      username="kdurgam" 
+      password="filenet@123"       
+      maxActive="100" 
+      maxIdle="20" 
+      minIdle="5" 
+      maxWait="10000"/>	
+</Context>

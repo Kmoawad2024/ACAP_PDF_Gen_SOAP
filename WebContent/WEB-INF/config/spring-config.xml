@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                                     http://www.springframework.org/schema/web-services
+                                     http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+                                    http://www.springframework.org/schema/context
+                                    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                                    http://www.springframework.org/schema/jee
+                                    http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+	<context:component-scan base-package="gov.tn.acap.service" />
+	<bean id="AcapPDFGenService"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+		lazy-init="true">
+		<property name="schemaCollection">
+			<bean
+				class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+				<property name="inline" value="true" />
+				<property name="xsds">
+					<list>
+						<value>schemas/AcapPDFGenServiceOperations.xsd</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="portTypeName" value="AcapPDFGenService" />
+		<property name="serviceName" value="AcapPDFGenService" />
+		<property name="locationUri" value="/endpoints" />
+		<property name="targetNamespace" value="http://www.gov/tn/acap/ws" />
+	</bean>
+
+	<bean id="customConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="order" value="1" />
+		<property name="nullValue" value="null" />
+		<property name="ignoreUnresolvablePlaceholders" value="false" />
+		<property name="locations">
+			<list>
+				<value>classpath:AcapPDFGen.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="fnOperations" class="gov.tn.acap.filenet.AcapFNOperations">
+		<property name="ceServerURL" value="${ceServerURL}" />
+		<property name="ldapSystemUser" value="${ldapSystemUser}" />
+		<property name="ldapSystemPwd" value="${ldapSystemPwd}" />
+		<property name="ceObjectStore" value="${ceObjectStore}" />
+		<property name="jaasLoginModule" value="${jaasLoginModule}" />
+		<property name="fileNetDAOImpl" ref="fileNetDAO" />
+
+	</bean>
+	<bean id="acapUserDetails" class="gov.tn.acap.service.security.AcapUserDetails">
+		<property name="ldapSystemUser" value="${ldapSystemUser}" />
+		<property name="ldapSystemPwd" value="${ldapSystemPwd}" />
+	</bean>
+	<bean id="acapUserService" class="gov.tn.acap.service.security.AcapSecurityService">
+		<property name="acapUserDetails" ref="acapUserDetails" />
+	</bean>
+	<bean name="acapSecurityCallback"
+		class="org.springframework.ws.soap.security.wss4j.callback.SpringSecurityPasswordValidationCallbackHandler">
+		<property name="userDetailsService" ref="acapUserService" />
+	</bean>
+	<bean id="schema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+		<property name="xsd" value="/schemas/AcapPDFGenServiceOperations.xsd" />
+	</bean>
+	<bean id="validatingInterceptor"
+		class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+		<property name="xsdSchema" ref="schema" />
+		<property name="validateRequest" value="true" />
+		<property name="validateResponse" value="true" />
+	</bean>
+
+	<bean id="loggingInterceptor"
+		class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
+
+	<bean name="endpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping">
+		<property name="interceptors">
+			<list>
+				<ref local="loggingInterceptor" />
+				<ref local="validatingInterceptor" />
+			</list>
+		</property>
+	</bean>
+	<bean id="exceptionResolver"
+		class="org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver">
+		<property name="defaultFault" value="SERVER" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.oxm.ValidationFailureException">CLIENT,Invalid request</prop>
+				<prop key="gov.tn.acap.exception.AcapPDFGenException">SERVER</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="wsSecurityInterceptor"
+		class="org.springframework.ws.soap.security.wss4j.Wss4jSecurityInterceptor">
+		<property name="validationActions" value="UsernameToken" />
+		<property name="validationCallbackHandler" ref="acapSecurityCallback" />
+	</bean>
+
+	<bean id="callbackHandler"
+		class="org.springframework.ws.soap.security.wss4j.callback.SimplePasswordValidationCallbackHandler">
+		<property name="users">
+			<props>
+				<prop key="Bert">Ernie</prop>
+				<prop key="Mickey">Mouse</prop>
+			</props>
+		</property>
+	</bean>
+	<jee:jndi-lookup id="tomcatDataSource" jndi-name="jdbc/AOCDB"
+		resource-ref="true" />
+
+	<!-- <jee:jndi-lookup id="wasDataSource" jndi-name="jdbc/IICSDS" resource-ref="true"> 
+		</jee:jndi-lookup> -->
+
+	<bean id="fileNetDAO" class="gov.tn.acap.dao.impl.AcapFileNetDAOImpl">
+		<property name="flntSqlPrntQry" value="${flntSqlPrntQry}" />
+		<property name="flntSqlCldQry" value="${flntSqlCldQry}" />
+		<property name="flntSqlNameQry" value="${flntSqlNameQry}" />
+		<property name="rootelement" value="${rootelement}" />
+		<property name="restURL" value="${restURL}" />
+		<property name="isWaitingForApproval" value="${isWaitingForApproval}" />
+		<property name="dbDAO" ref="dbDAO" />
+	</bean>
+
+	<bean id="dbDAO" class="gov.tn.acap.dao.impl.AcapDbDAOImpl">
+		<property name="dataSource" ref="tomcatDataSource" />
+		<property name="dbSqlOnlIncourtQry" value="${dbSqlOnlIncourtQry}" />
+		<property name="dbSqlOnlOutcourtQry" value="${dbSqlOnlOutcourtQry}" />
+		<property name="dbSqlTravelTimeChildSupporttQry" value="${dbSqlTravelTimeChildSupporttQry}" />
+		<property name="dbSqlContinuedQry" value="${dbSqlContinuedQry}" />
+		<property name="dbSqlOnlInterNcsryExpsQry" value="${dbSqlOnlInterNcsryExpsQry}" />
+		<property name="dbSqlOnlInterWordsExpsQry" value="${dbSqlOnlInterWordsExpsQry}" />
+		<property name="dbSqlOnlNcsryExpscourtQry" value="${dbSqlOnlNcsryExpscourtQry}" />
+		<property name="dbSqlsumJATCandAATCQry" value="${dbSqlsumJATCandAATCQry}" />
+		<property name="dbSqlOnlHoursQry" value="${dbSqlOnlHoursQry}" />
+		<property name="dbSqlCategoryQry" value="${dbSqlCategoryQry}" />
+		<property name="dbSqlTimeLogTotQry" value="${dbSqlTimeLogTotQry}" />
+		<property name="dbSqlTimeLogUnitCost" value="${dbSqlTimeLogUnitCost}" />
+		<property name="dbSqlChildSupporttQry" value="${dbSqlChildSupporttQry}" />
+		<property name="dbSqlJHDBQry" value="${dbSqlJHDBQry}" />
+		<property name="dbSqlGALMaxServiceDt" value="${dbSqlGALMaxServiceDt}" />
+		
+	</bean>
+
+</beans>  

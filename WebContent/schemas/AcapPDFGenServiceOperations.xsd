@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://gov/tn/acap/ws"
+			xmlns:xmime="http://www.w3.org/2005/05/xmlmime"  
+			targetNamespace="http://www.gov/tn/acap/ws" elementFormDefault="qualified">
+	<xsd:element name="AcapPDFGenRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="claimNumber" type="xsd:string"/>
+				<xsd:element name="folderID" type="xsd:string"/>
+				<xsd:element name="caseStatus" type="xsd:string"/>
+				<xsd:element name="claimType" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapPDFGenResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="docID" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapPDFGenPrintRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="claimNumber" type="xsd:string"/>
+				<xsd:element name="folderID" type="xsd:string"/>
+				<xsd:element name="caseStatus" type="xsd:string"/>
+				<xsd:element name="claimType" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapPDFGenPrintResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="docID" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapIntransitPDFGenRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="claimNumber" type="xsd:string"/>
+				<xsd:element name="folderID" type="xsd:string"/>
+				<xsd:element name="caseStatus" type="xsd:string"/>
+				<xsd:element name="claimType" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapIntransitPDFGenResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="docID" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapGetDataPDFGenRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="claimNumber" type="xsd:string"/>
+				<xsd:element name="folderID" type="xsd:string"/>
+				<xsd:element name="caseStatus" type="xsd:string"/>
+				<xsd:element name="claimType" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AcapGetDataPDFGenResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="pdfBytes" minOccurs="0"
+                    type="xsd:base64Binary" xmime:expectedContentTypes="application/octet-stream" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
