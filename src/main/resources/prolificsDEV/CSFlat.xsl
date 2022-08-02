@@ -562,7 +562,7 @@
 												<xsl:if
 													test="//attorneyfeeclaim//itemizedExpense//lineItem//CSS = 'CSS' or //attorneyfeeclaim//itemizedExpense//lineItem//CSSPAC = 'CSSPAC' or //attorneyfeeclaim//itemizedExpense//lineItem//CSSGT4 = 'CSSGT4'">
 													<xsl:value-of
-														select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSS'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSPAC'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSGT4'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses']),'##.00' )" />
+														select="format-number(round ( 100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSS'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSPAC'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSGT4'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses'])) div 100,'##.00' )" />
 												</xsl:if>
 											</fo:inline>
 										</fo:block>
@@ -575,7 +575,7 @@
 												<xsl:if
 													test="//attorneyfeeclaim//ACAP_ClaimStatus = 'Awaiting Judge Signature' or //attorneyfeeclaim//SubmitforAOCReview or //attorneyfeeclaim//SubmitforFinalApproval or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready To Batch' or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready to Batch' or //attorneyfeeclaim//Paid">
 													<xsl:value-of
-														select='format-number(sum(//attorneyfeeclaim//itemizedExpense//JudgeApprovedTotalCost | //attorneyfeeclaim//JudgeHoursAdjust),"##.00" )'/>
+														select='format-number(round ( 100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//JudgeApprovedTotalCost | //attorneyfeeclaim//JudgeHoursAdjust)) div 100,"##.00" )'/>
 												</xsl:if>
 											<!-- Electronic Signature Epic -->
 											</fo:inline>
@@ -824,7 +824,7 @@
 													<!-- Electronic Signature Epic -->
 													<xsl:if test="//attorneyfeeclaim//ACAP_ClaimStatus = 'Awaiting Judge Signature' or //attorneyfeeclaim//SubmitforFinalApproval or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready To Batch' or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready to Batch' or //attorneyfeeclaim//Paid">
 													<xsl:value-of 													
-													select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSS'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSPAC'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSGT4'] |//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses'] | //attorneyfeeclaim//itemizedExpense//HoursAdjustment),'##.00' )" />
+													select="format-number(round ( 100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSS'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSPAC'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='CSSGT4'] |//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses'] | //attorneyfeeclaim//itemizedExpense//HoursAdjustment)) div 100,'##.00' )" />
 													</xsl:if>
 													<!-- Electronic Signature Epic -->
 												</fo:block>
@@ -1124,7 +1124,7 @@
 												<xsl:if
 													test="//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost != '0.00'">
 													<xsl:value-of
-														select='format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost),"##.00" )' />
+														select='format-number(round ( 100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost)) div 100,"##.00" )' />
 												</xsl:if>
 											</fo:inline>
 										</fo:block>

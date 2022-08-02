@@ -751,7 +751,7 @@
 													<xsl:when
 														test="//attorneyfeeclaim//itemizedExpense//lineItem//Hours = 'Hours'">
 														<xsl:value-of
-														select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedQuantity[@expenseType='Hours']),'##.000' )" />															
+														select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedQuantity[@expenseType='Hours']),'##.00' )" />															
 													</xsl:when>
 													<xsl:otherwise>
 														<fo:inline />
@@ -768,7 +768,7 @@
 													<xsl:when
 														test="//attorneyfeeclaim//itemizedExpense//lineItem//Hours = 'Hours'">
 														<xsl:value-of
-														select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours']),'##.000' )" />																
+														select="format-number(round( 100.0000000001 * sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'])) div 100,'##.00' )" />																
 													</xsl:when>
 													<xsl:otherwise>
 														<fo:inline />
@@ -816,7 +816,7 @@
 												<xsl:if
 													test="//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] != '0.00' or //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Expenses'] != '0.00'">
 													<xsl:value-of
-														select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Expenses']),'##.000' )" />
+														select="format-number(round( 100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Expenses'])) div 100,'##.00' )" />
 												</xsl:if>
 											</fo:inline>
 										</fo:block>
@@ -1002,7 +1002,7 @@
 													<xsl:if
 														test="//attorneyfeeclaim//SubmitforFinalApproval or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready To Batch' or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready to Batch' or //attorneyfeeclaim//Paid">
 														<xsl:value-of
-														select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Expenses'] | //attorneyfeeclaim//itemizedExpense//HoursAdjustment),'##.00' )" />
+														select='format-number(round( 100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType="Hours"] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType="Expenses"] | //attorneyfeeclaim//itemizedExpense//HoursAdjustment)) div 100,"##.00" )' />
 													</xsl:if>
 												</fo:block>
 											</fo:table-cell>
@@ -1231,7 +1231,7 @@
 												<xsl:if
 													test="//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost != '0.00'">
 													<xsl:value-of
-														select='format-number(round( 100 * sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost)) div 100,"##.00" )' />
+														select='format-number(round( 100.0000000001 * sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost)) div 100,"##.00" )' />
 												</xsl:if>
 											</fo:inline>
 										</fo:block>

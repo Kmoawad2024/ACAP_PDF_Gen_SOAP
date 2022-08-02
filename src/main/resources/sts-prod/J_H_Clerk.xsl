@@ -258,7 +258,7 @@
 										display-align="before">
 										<fo:block  font-family="Arial"
 											font-size="8pt">
-											<xsl:value-of select="//attorneyfeeclaim//itemizedExpense//AuditApprovedTotalCost" />
+											<xsl:value-of select="format-number(round(100.0000000001 * (//attorneyfeeclaim//itemizedExpense//AuditApprovedTotalCost)) div 100, '##.00')" />
 										</fo:block>
 									</fo:table-cell>
 
@@ -278,7 +278,7 @@
 										<fo:block  font-family="Arial"
 											font-size="8pt">
 											<xsl:if test="//attorneyfeeclaim//SubmitforFinalApproval or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready To Batch' or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready to Batch' or //attorneyfeeclaim//Paid">
-												<xsl:value-of select='format-number(sum(//attorneyfeeclaim//itemizedExpense//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//HoursAdjustment),"##.00" )' />
+												<xsl:value-of select= 'format-number(round (100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//HoursAdjustment)) div 100,"##.00" )' />
 											</xsl:if>
 										</fo:block>
 									</fo:table-cell>

@@ -349,7 +349,7 @@
 										padding-before="2pt" padding-after="2pt" margin-left="80pt"
 										display-align="after">
 										<fo:block font-family="Arial" font-size="8pt">
-											<xsl:value-of select="//attorneyfeeclaim//itemizedExpense//CostForEachClient" />
+											<xsl:value-of select="format-number(round(100.0000000001 *(//attorneyfeeclaim//itemizedExpense//CostForEachClient)) div 100, '##.00')" />
 										</fo:block>
 									</fo:table-cell>
 
@@ -388,7 +388,7 @@
 									<!-- 			<xsl:value-of select='format-number(sum(//attorneyfeeclaim//itemizedExpense//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//HoursAdjustment),"##.000" )' /> -->
 											 
 											<!-- <xsl:value-of select='format-number(sum(//attorneyfeeclaim//itemizedExpense//Words//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//Hours//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//NecessaryExpenses//AuditApprovedTotalCost),"##.000" )' /> -->
-											<xsl:value-of select="format-number(sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Words'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses']),'##.000' )" />
+											<xsl:value-of select="format-number(round(100.0000000001 *sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Words'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses'])) div 100,'##.00' )" />
 										</fo:block>
 									</fo:table-cell>
 
@@ -409,7 +409,7 @@
 											<xsl:if test="//attorneyfeeclaim//SubmitforFinalApproval or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready To Batch' or //attorneyfeeclaim//ACAP_ClaimStatus = 'Ready to Batch' or //attorneyfeeclaim//Paid">
 											<!-- <xsl:value-of select='format-number(sum(//attorneyfeeclaim//itemizedExpense//AuditApprovedTotalCost| //attorneyfeeclaim//itemizedExpense//HoursAdjustment),"##.000" )' /> -->
 											<!-- <xsl:value-of select='format-number(sum(//attorneyfeeclaim//itemizedExpense//Words//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//Hours//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//NecessaryExpenses//AuditApprovedTotalCost | //attorneyfeeclaim//itemizedExpense//HoursAdjustment),"##.000" )' /> -->
-											<xsl:value-of select="format-number( round ( 100 * sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Words'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses'] | //attorneyfeeclaim//itemizedExpense//HoursAdjustment)) div 100,'##.00' )" />
+											<xsl:value-of select="format-number( round ( 100.0000000001 * sum(//attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Words'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='Hours'] | //attorneyfeeclaim//itemizedExpense//lineItem//AuditApprovedTotalCost[@expenseType='NecessaryExpenses'] | //attorneyfeeclaim//itemizedExpense//HoursAdjustment)) div 100,'##.00' )" />
 											</xsl:if>
 										</fo:block>
 									</fo:table-cell>
