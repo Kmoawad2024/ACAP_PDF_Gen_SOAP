@@ -3,7 +3,7 @@
 <Context path="/AcapPDFGen" docBase="AcapPDFGen"
    crossContext="true" reloadable="true" debug="1">
 
-          	<Resource name="jdbc/AOCDB" 
+    <Resource name="jdbc/AOCDB" 
       global="jdbc/AOCDB" 
       auth="Container" 
       type="javax.sql.DataSource" 

@@ -1,5 +1,4 @@
 package gov.tn.acap.filenet;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1082,8 +1081,12 @@ public class AcapFNOperations implements AcapFNOperationsConstants{
 				/*if(!EXPERT_OR_WITNESS_CLAIM.equalsIgnoreCase(this.sclaimType)){
 					caseDocs.add((InputStream)retrieveDoc.accessContentStream(0)); 
 				}else{*/
-				if(!ACAP_PREAPPROVALORDERS.equalsIgnoreCase(retrieveDoc.get_ClassDescription().get_SymbolicName())){
-					caseDocs.add((InputStream)retrieveDoc.accessContentStream(0)); 
+							
+				//if(!ACAP_PREAPPROVALORDERS.equalsIgnoreCase(retrieveDoc.get_ClassDescription().get_SymbolicName())){
+				// Added New By Khaled to Excluse all PreApproval & Orders Documents from PDF
+				//	if(!ACAP_PREAPPROVALORDERS.equalsIgnoreCase(retrieveDoc.get_ClassDescription().get_SymbolicName()) || !ACAP_Orders.equalsIgnoreCase(retrieveDoc.get_ClassDescription().get_SymbolicName())){	
+				if (ACAP_Receipts.equalsIgnoreCase(retrieveDoc.get_ClassDescription().get_SymbolicName())){
+				caseDocs.add((InputStream)retrieveDoc.accessContentStream(0)); 
 				}
 				//}
 

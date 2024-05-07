@@ -182,6 +182,9 @@ public interface AcapFNOperationsConstants {
 	/** The acap last. */
 	String ACAP_LAST = "ACAP_Last";
 	
+	/** The acap Pre_approcal and Orders Document Classes */
 	String ACAP_PREAPPROVALORDERS="ACAP_PreApprovalOrders";
+	String ACAP_Orders="ACAP_Orders";
+	String ACAP_Receipts="ACAP_Receipts";
 
 }

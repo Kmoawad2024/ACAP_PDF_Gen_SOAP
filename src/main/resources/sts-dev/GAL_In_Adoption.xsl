@@ -220,7 +220,8 @@
 											<fo:table-cell padding-left="3pt" border="solid .1mm black">
 												<fo:block font-family="Arial" font-size="8pt" text-align="left">
 													<xsl:if test="relation = 'Child'">
-														<xsl:value-of select="Name" />
+													<!-- Commented as required per AOC -->
+													<!-- 	<xsl:value-of select="Name" /> -->
 													</xsl:if>
 												</fo:block>
 											</fo:table-cell>
@@ -295,6 +296,7 @@
 											<xsl:if test="//attorneyfeeclaim//Children!=''">
 												<xsl:for-each select="//attorneyfeeclaim//Children//Child">
 													<xsl:if test="relation != 'Child'">
+													<!-- Commented as required per AOC -->
 														<xsl:value-of select="Name" />&#x2028;
 													</xsl:if>
 												</xsl:for-each>

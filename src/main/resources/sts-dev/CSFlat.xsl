@@ -372,11 +372,13 @@
 												font-size="8pt">&#x00A0;<xsl:value-of select="Judge"/>
 													</fo:block>
 												</fo:table-cell>-->
-												<fo:table-cell text-align="center" display-align="center" border="solid .1mm black">
-													<fo:block  font-family="Arial"
-												font-size="8pt">&#x00A0;<xsl:value-of select="Name"/>
-													</fo:block>
-												</fo:table-cell>
+											
+											   <fo:table-cell text-align="center" display-align="center" border="solid .1mm black">
+												<fo:block  font-family="Arial"
+												font-size="8pt">&#x00A0;										
+												 <xsl:value-of select="Name"/> 
+												</fo:block> 
+												</fo:table-cell> 
 												<fo:table-cell text-align="center" display-align="center" border="solid .1mm black">
 													<fo:block  font-family="Arial"
 												font-size="8pt">&#x00A0;<xsl:value-of select="Case_Number"/>
