@@ -390,5 +390,4 @@
 C:\apache-maven-3.3.9\bin\mvn deploy:deploy-file -DgroupId=org.apache -DartifactId=commons-lang -Dversion=2.6 -Durl=file:./local-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=c:\Temp\jars\commons-lang-2.6.jar
 C:\apache-maven-3.3.9\bin\mvn deploy:deploy-file -DgroupId=xlxp-Scanner -DartifactId=xlxpScanner -Dversion=5.2 -Durl=file:./local-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=c:\Temp\jars\xlxpScanner.jar
 C:\apache-maven-3.3.9\bin\mvn deploy:deploy-file -DgroupId=xlxp-ScannerUtils -DartifactId=xlxpScannerUtils -Dversion=5.2 -Durl=file:./local-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=c:\Temp\jars\xlxpScannerUtils.jar
-
  -->
